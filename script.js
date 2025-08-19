@@ -1,24 +1,10 @@
-// 通知許可をリクエスト
-Notification.requestPermission().then(permission => {
-  console.log("通知許可:", permission);
-});
+function showInPageNotification(message) {
+  const notifyDiv = document.getElementById('inPageNotify');
+  notifyDiv.textContent = message;
+  notifyDiv.classList.remove('hidden');
 
-// 通知を送る関数
-function sendTestNotification() {
-  if (Notification.permission === "granted") {
-    new Notification("服薬通知テスト", {
-      body: "これは通知機能のテストです。実際の服薬時間に合わせて通知できます。",
-      icon: "https://via.placeholder.com/192" // 任意のアイコンURL
-    });
-  } else {
-    alert("通知が許可されていません。ブラウザの設定を確認してください。");
-  }
+  // 3秒後に非表示
+  setTimeout(() => {
+    notifyDiv.classList.add('hidden');
+  }, 3000);
 }
-
-// ボタンにイベントを設定
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("testNotifyBtn");
-  if (btn) {
-    btn.addEventListener("click", sendTestNotification);
-  }
-});
