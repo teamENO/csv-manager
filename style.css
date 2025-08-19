@@ -4,6 +4,16 @@ body {
   margin: 40px;
   color: #333;
 }
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+  table {
+    font-size: 14px;
+    overflow-x: auto;
+  }
+}
 
 h2 {
   color: #2c3e50;
@@ -64,4 +74,5 @@ td[contenteditable="true"] {
 td:focus {
   outline: 2px solid #3498db;
   background-color: #eaf6ff;
+
 }
