@@ -4,6 +4,10 @@ body {
   margin: 40px;
   color: #333;
 }
+#testNotifyBtn {
+  display: block; /* または inline-block */
+  visibility: visible;
+}
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -84,4 +88,5 @@ td:focus {
   background-color: #eaf6ff;
 
 }
+
 
