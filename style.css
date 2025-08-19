@@ -9,6 +9,14 @@ body {
     flex-direction: column;
     padding: 10px;
   }
+  input, button {
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+  .table-wrapper {
+  overflow-x: auto;
+}
   table {
     font-size: 14px;
     overflow-x: auto;
@@ -76,3 +84,4 @@ td:focus {
   background-color: #eaf6ff;
 
 }
+
