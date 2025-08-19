@@ -5,17 +5,18 @@ if ('serviceWorker' in navigator) {
 }
 
 // 通知許可取得
-function requestNotificationPermission() {
-  Notification.requestPermission().then(permission => {
-    if (permission === 'granted') {
-      console.log('通知許可OK');
-    }
-  });
+Notification.requestPermission().then(permission => {
+  if (permission === 'granted') {
+    console.log('通知許可OK');
+  }
+});
+
+// 通知を送る関数
+function sendNotification(title, body) {
+  new Notification(title, { body });
 }
 
-// 通知を送る関数（例：5秒後）
-function sendLocalNotification(title, body, delayMs) {
-  setTimeout(() => {
-    new Notification(title, { body });
-  }, delayMs);
-}
+// 例：服薬時間に通知
+document.getElementById('notifyBtn').addEventListener('click', () => {
+  sendNotification("服薬の時間です", "朝の薬を忘れずに！");
+});
