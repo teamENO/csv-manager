@@ -1,129 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>CSV管理アプリ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>服薬管理アプリ</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
- 
 <body>
-  <h2>CSVファイルを読み込み・編集・登録</h2>
 
-  <!-- CSVアップロード（任意） -->
-  <input type="file" id="csvFile" accept=".csv" />
+  <h1>服薬管理アプリ</h1>
 
-  <!-- 登録フォーム -->
-  <form id="entryForm">
-    <input type="text" name="名前" placeholder="名前" required />
-    <input type="text" name="薬名" placeholder="薬名" required />
-    <input type="text" name="服薬時間" placeholder="服薬時間" required />
-    <button type="submit">登録</button>
-  </form>
-
-  <!-- 表表示 -->
-  <table id="csvTable">
-    <thead>
-      <tr><th>名前</th><th>薬名</th><th>服薬時間</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-   
-  <!-- CSV保存 -->
-  <button id="downloadBtn">CSV保存</button>
+  <!-- CSV管理UI（仮） -->
+  <section id="csvSection">
+    <p>ここにCSV管理のUIが入ります（例：服薬記録表など）</p>
+    <!-- 例：CSVアップロードや表示など -->
+  </section>
 
   <!-- 通知テストボタン -->
-<button id="testNotifyBtn">通知テスト</button>
-  <script>
-    // ページ読み込み時に med_log.csv を自動読み込み
-    window.addEventListener("DOMContentLoaded", function() {
-      fetch("med_log.csv")
-        .then(response => response.text())
-        .then(csvText => {
-          Papa.parse(csvText, {
-            header: true,
-            complete: function(results) {
-              const data = results.data;
-              const tbody = document.querySelector("#csvTable tbody");
-              tbody.innerHTML = "";
+  <section id="notifySection">
+    <h2>通知テスト</h2>
+    <p>通知機能の動作確認はこちらから：</p>
+    <button id="testNotifyBtn">通知テスト</button>
+  </section>
 
-              data.forEach(row => {
-                const tr = document.createElement("tr");
-                ["名前", "薬名", "服薬時間"].forEach(key => {
-                  const td = document.createElement("td");
-                  td.textContent = row[key] || "";
-                  td.contentEditable = true;
-                  tr.appendChild(td);
-                });
-                tbody.appendChild(tr);
-              });
-            }
-          });
-        });
-    });
-
-    // CSVファイル手動アップロード（任意）
-    document.getElementById("csvFile").addEventListener("change", function(e) {
-      const file = e.target.files[0];
-      Papa.parse(file, {
-        header: true,
-        complete: function(results) {
-          const data = results.data;
-          const tbody = document.querySelector("#csvTable tbody");
-          tbody.innerHTML = "";
-
-          data.forEach(row => {
-            const tr = document.createElement("tr");
-            ["名前", "薬名", "服薬時間"].forEach(key => {
-              const td = document.createElement("td");
-              td.textContent = row[key] || "";
-              td.contentEditable = true;
-              tr.appendChild(td);
-            });
-            tbody.appendChild(tr);
-          });
-        }
-      });
-    });
-
-    // 登録フォーム
-    document.getElementById("entryForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const tr = document.createElement("tr");
-
-      ["名前", "薬名", "服薬時間"].forEach(name => {
-        const input = form.querySelector(`[name="${name}"]`);
-        const td = document.createElement("td");
-        td.textContent = input.value;
-        td.contentEditable = true;
-        tr.appendChild(td);
-        input.value = "";
-      });
-
-      document.querySelector("#csvTable tbody").appendChild(tr);
-    });
-
-    // CSV保存（med_log.csvとして）
-    document.getElementById("downloadBtn").addEventListener("click", function() {
-      const rows = Array.from(document.querySelectorAll("#csvTable tr"));
-      const csv = rows.map(row =>
-        Array.from(row.children).map(cell => `"${cell.textContent}"`).join(",")
-      ).join("\n");
-
-      const blob = new Blob([csv], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "med_log.csv"; // ← 固定ファイル名
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-  </script>
+  <script src="script.js" defer></script>
 </body>
-
 </html>
 
 
