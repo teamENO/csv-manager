@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>服薬管理アプリ</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>服薬管理CSVアプリ</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <h1>服薬管理アプリ</h1>
-
-  <!-- CSV管理UI（仮） -->
-  <section id="csvSection">
-    <!-- 通知表示領域（最初は非表示） -->
-<div id="inPageNotify" class="notify hidden"></div>
-
-<!-- 通知テストボタン -->
-<button onclick="showInPageNotification('通知テスト成功！')">通知テスト</button>
-    <p>ここにCSV管理のUIが入ります（例：服薬記録表など）</p>
-    <!-- 例：CSVアップロードや表示など -->
-  </section>
+  <!-- ページ内通知領域 -->
+  <div id="inPageNotify" class="notify hidden"></div>
 
   <!-- 通知テストボタン -->
   <section id="notifySection">
     <h2>通知テスト</h2>
-    <p>通知機能の動作確認はこちらから：</p>
-    <button id="testNotifyBtn">通知テスト</button>
+    <button onclick="showInPageNotification('通知テスト成功！')">通知を表示</button>
   </section>
 
-  <script src="script.js" defer></script>
+  <!-- CSV管理セクション -->
+  <section id="csvSection">
+    <h2>CSVアップロード</h2>
+    <input type="file" id="csvFileInput" accept=".csv">
+    <button onclick="handleCSVUpload()">アップロード</button>
+
+    <h2>CSVデータ表示</h2>
+    <table id="csvTable"></table>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
