@@ -12,6 +12,11 @@
 
   <!-- CSV管理UI（仮） -->
   <section id="csvSection">
+    <!-- 通知表示領域（最初は非表示） -->
+<div id="inPageNotify" class="notify hidden"></div>
+
+<!-- 通知テストボタン -->
+<button onclick="showInPageNotification('通知テスト成功！')">通知テスト</button>
     <p>ここにCSV管理のUIが入ります（例：服薬記録表など）</p>
     <!-- 例：CSVアップロードや表示など -->
   </section>
@@ -26,6 +31,7 @@
   <script src="script.js" defer></script>
 </body>
 </html>
+
 
 
 
