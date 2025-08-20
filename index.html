@@ -3,48 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>服薬登録</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h2>服薬情報の登録</h2>
   <form id="medForm">
-    名前：<input type="text" id="name"><br>
-    薬名：<input type="text" id="medicine"><br>
-    時間（HH:MM）：<input type="time" id="time"><br>
+    <label for="name">名前</label>
+    <input type="text" id="name" required>
+
+    <label for="medicine">薬名</label>
+    <input type="text" id="medicine" required>
+
+    <label for="time">服薬時間（HH:MM）</label>
+    <input type="time" id="time" required>
+
     <button type="submit">登録</button>
+    <div class="success" id="message"></div>
   </form>
 
-  <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbylEu-RoOJL6IF-EXDoUCv0yK3L3icCxlRrdlpJbCpSYkGYrNEcKsEHoV8JAnFw_y75/exec"; // ← ここに実際のURLを入れてください
-
-    document.getElementById("medForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const data = {
-        name: document.getElementById("name").value,
-        medicine: document.getElementById("medicine").value,
-        time: document.getElementById("time").value
-      };
-
-      fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => response.text())
-      .then(result => {
-        alert("登録完了：" + result);
-      })
-      .catch(error => {
-        alert("エラー：" + error);
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
 
 
 
