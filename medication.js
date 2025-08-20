@@ -50,3 +50,18 @@ setInterval(() => {
     }
   });
 }, 60000);
+function sendToSheet(name, medicine, time) {
+  if (!name || !medicine || !time) {
+    alert("すべての項目を入力してください");
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbwPl0YY0Gfyt0s5ajiVYCFazu_O-m4vraj-HGLPZ_z8nL6E16NV6G60iWe605xSt-asXw/exec", {
+    method: "POST",
+    body: JSON.stringify({ name, medicine, time }),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(res => res.text())
+  .then(msg => console.log("送信結果:", msg))
+  .catch(err => console.error("送信エラー:", err));
+}
