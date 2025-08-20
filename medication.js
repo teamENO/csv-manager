@@ -17,7 +17,7 @@ form.addEventListener("submit", function(e) {
 
   messageEl.textContent = "送信中...";
 
-  fetch("https://script.google.com/macros/s/【GASのexec URL】/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbw8WM7fygS2JdeeiJkhX9gYgkG-XXjFI4NqiXZPO3Itm1WppP3LClJ8R6kBjzRwFhH9mA/exec", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
