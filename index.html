@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>服薬記録フォーム</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h2>服薬記録フォーム</h2>
-
-  <form action="https://script.google.com/macros/s/AKfycbwRaD-VXWbszZaLpu1QsbSjpQz-Y7A0yQCY0kmS-Q58oinClI4Pj9VyeXNL9WrJpUXrEA/exec" method="POST">
+<form action="https://script.google.com/macros/s/AKfycbwRaD-VXWbszZaLpu1QsbSjpQz-Y7A0yQCY0kmS-Q58oinClI4Pj9VyeXNL9WrJpUXrEA/exec" method="POST">
   <input name="name" placeholder="名前" required>
   <input name="medicine" placeholder="薬名" required>
   <select name="time" required>
@@ -20,14 +11,8 @@
   </select>
   <button type="submit">記録する</button>
 </form>
-  <div class="message" id="message"></div>
-
-  <h3>📋 記録履歴（最新5件）</h3>
-  <ul id="historyList"></ul>
-
-  <script src="script.js"></script>
-</body>
 </html>
+
 
 
 
