@@ -1,4 +1,3 @@
-// 時間選択肢の生成
 document.addEventListener('DOMContentLoaded', () => {
   const medTimeSelect = document.getElementById('medTime');
   for (let h = 0; h < 24; h++) {
@@ -10,25 +9,47 @@ document.addEventListener('DOMContentLoaded', () => {
       medTimeSelect.appendChild(option);
     }
   }
+
+  document.getElementById('medForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const medicine = document.getElementById('medicine').value.trim();
+    const time = document.getElementById('medTime').value;
+
+    if (!name || !medicine || !time) {
+      alert("すべての項目を入力してください");
+      return;
+    }
+
+    // 表に追加
+    const table = document.getElementById('medTable').querySelector('tbody');
+    const row = table.insertRow();
+    row.insertCell(0).textContent = name;
+    row.insertCell(1).textContent = medicine;
+    row.insertCell(2).textContent = time;
+
+    // Googleスプレッドシートに送信
+    sendToSheet(name, medicine, time);
+
+    this.reset();
+  });
 });
 
-// データ追加処理
-document.getElementById('medForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const name = document.getElementById('name').value;
-  const medicine = document.getElementById('medicine').value;
-  const time = document.getElementById('medTime').value;
+// Google Apps Script Webhookへ送信
+function sendToSheet(name, medicine, time) {
+  fetch("https://script.google.com/macros/s/AKfycbyXF4qukKhYgGFupqeaw4aupi-VEW3sBwCUv-MLk3V8beRxaBYZvGOwYHU6C_7l1Jmb6g/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ name, medicine, time })
+  })
+  .then(res => res.text())
+  .then(msg => console.log("送信結果:", msg))
+  .catch(err => console.error("送信エラー:", err));
+}
 
-  const table = document.getElementById('medTable').querySelector('tbody');
-  const row = table.insertRow();
-  row.insertCell(0).textContent = name;
-  row.insertCell(1).textContent = medicine;
-  row.insertCell(2).textContent = time;
-
-  this.reset();
-});
-
-// 通知表示関数
+// 通知表示（任意）
 function showNotification(name, medicine, time) {
   const notification = document.getElementById('notification');
   notification.textContent = `${name}さん、${medicine}の服薬時間（${time}）です！`;
@@ -36,7 +57,7 @@ function showNotification(name, medicine, time) {
   setTimeout(() => notification.classList.add('hidden'), 5000);
 }
 
-// 時間チェック（毎分）
+// 毎分チェックして通知（任意）
 setInterval(() => {
   const now = new Date();
   const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -50,14 +71,3 @@ setInterval(() => {
     }
   });
 }, 60000);
-
-function sendToSheet(name, medicine, time) {
-  fetch("https://script.google.com/macros/s/AKfycbyXF4qukKhYgGFupqeaw4aupi-VEW3sBwCUv-MLk3V8beRxaBYZvGOwYHU6C_7l1Jmb6g/exec", {
-    method: "POST",
-    body: JSON.stringify({ name, medicine, time }),
-    headers: { "Content-Type": "application/json" }
-  })
-  .then(res => res.text())
-  .then(msg => console.log("送信結果:", msg))
-  .catch(err => console.error("送信エラー:", err));
-}
