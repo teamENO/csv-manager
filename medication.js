@@ -72,7 +72,7 @@ function sendToSheet(name, medicine, time) {
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbwPl0YY0Gfyt0s5ajiVYCFazu_O-m4vraj-HGLPZ_z8nL6E16NV6G60iWe605xSt-asXw/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbyXF4qukKhYgGFupqeaw4aupi-VEW3sBwCUv-MLk3V8beRxaBYZvGOwYHU6C_7l1Jmb6g/exec", {
     method: "POST",
     body: JSON.stringify({ name, medicine, time }),
     headers: { "Content-Type": "application/json" }
