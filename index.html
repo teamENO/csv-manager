@@ -2,62 +2,41 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>服薬通知サイト</title>
+  <title>服薬記録フォーム</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>服薬管理・通知システム</h1>
+  <h2>服薬記録フォーム</h2>
 
-  <!-- 入力フォーム -->
- <form id="medForm">
-  <input type="text" name="name" placeholder="名前" required>
-  <input type="text" name="medicine" placeholder="薬名" required>
-  <select name="time" required>
-    <option value="08:00">08:00</option>
-    <option value="12:00">12:00</option>
-    <option value="18:00">18:00</option>
-    <option value="21:00">21:00</option>
-  </select>
-  <button type="submit">送信</button>
-</form>
+  <form id="medForm">
+    <label for="name">名前</label>
+    <input type="text" name="name" id="name" required>
 
-<script>
-document.getElementById("medForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+    <label for="medicine">薬の名前</label>
+    <input type="text" name="medicine" id="medicine" required>
 
-  const formData = new FormData(e.target);
-  const data = {
-    name: formData.get("name"),
-    medicine: formData.get("medicine"),
-    time: formData.get("time")
-  };
+    <label for="time">服薬時間</label>
+    <select name="time" id="time" required>
+      <option value="">選択してください</option>
+      <option value="08:00">08:00</option>
+      <option value="12:00">12:00</option>
+      <option value="18:00">18:00</option>
+      <option value="21:00">21:00</option>
+    </select>
 
-  fetch("https://script.google.com/macros/s/AKfycbx-0R5FP5eSsbMoSJ-8A_j8Ybo8-ffMSHiVKio5dUNhOCznWmkIfFs3etcjPn8zRRv3MQ/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.text())
-  .then(msg => alert("送信成功: " + msg))
-  .catch(err => alert("送信エラー: " + err));
-});
-</script>
+    <button type="submit">記録する</button>
+  </form>
 
-  <!-- 表示領域 -->
-  <table id="medTable">
-    <thead><tr><th>名前</th><th>薬名</th><th>時間</th></tr></thead>
-    <tbody></tbody>
-  </table>
+  <div class="message" id="message"></div>
 
-  <!-- 通知領域 -->
-  <div id="notification" class="hidden"></div>
+  <h3>📋 記録履歴（最新5件）</h3>
+  <ul id="historyList"></ul>
 
-  <script src="medication.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
