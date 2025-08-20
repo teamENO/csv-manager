@@ -10,7 +10,7 @@
   <h1>服薬管理・通知システム</h1>
 
   <!-- 入力フォーム -->
-  <form id="medForm">
+ <form id="medForm">
   <input type="text" name="name" placeholder="名前" required>
   <input type="text" name="medicine" placeholder="薬名" required>
   <select name="time" required>
@@ -33,7 +33,7 @@ document.getElementById("medForm").addEventListener("submit", function(e) {
     time: formData.get("time")
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbw-pMdIeyyF1VsSQNcBr87itsd9HWZdequXlf4yaoC1SsvFrGFMhy4iOEgjJlmKvrvPWg/exec", {
+  fetch("https://script.google.com/macros/s/【GASのURL】/exec", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -58,5 +58,6 @@ document.getElementById("medForm").addEventListener("submit", function(e) {
   <script src="medication.js"></script>
 </body>
 </html>
+
 
 
