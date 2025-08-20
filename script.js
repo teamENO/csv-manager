@@ -8,7 +8,7 @@ document.getElementById("medForm").addEventListener("submit", function(e) {
     time: document.getElementById("time").value
   };
 
-  fetch(scriptURL, {
+fetch(scriptURL, {
   method: "POST",
   body: JSON.stringify(data),
   headers: {
