@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Google Apps Script Webhookへ送信
 function sendToSheet(name, medicine, time) {
-  fetch("https://script.google.com/macros/s/AKfycbyXF4qukKhYgGFupqeaw4aupi-VEW3sBwCUv-MLk3V8beRxaBYZvGOwYHU6C_7l1Jmb6g/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbx8GgnNwkvQcNhZUCM4Pj_qyFzvJJ7x4KViYD-ec9iUudpp_mXAHnqLtlx200z0D2W6Jg/exec", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
