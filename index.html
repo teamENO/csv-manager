@@ -1,17 +1,48 @@
 <!DOCTYPE html>
 <html lang="ja">
-<form action="https://script.google.com/macros/s/AKfycbwMt8H-9_Sexx61mTa2pKGasrWBSWQoAoUluooc6trb9aWEV4BO2ZESHWh55Rybr22EmQ/exec" method="POST">
-  <input name="name" placeholder="名前" required>
-  <input name="medicine" placeholder="薬名" required>
-  <select name="time" required>
-    <option value="08:00">08:00</option>
-    <option value="12:00">12:00</option>
-    <option value="18:00">18:00</option>
-    <option value="21:00">21:00</option>
-  </select>
-  <button type="submit">記録する</button>
-</form>
+<head>
+  <meta charset="UTF-8">
+  <title>服薬登録</title>
+</head>
+<body>
+  <h2>服薬情報の登録</h2>
+  <form id="medForm">
+    名前：<input type="text" id="name"><br>
+    薬名：<input type="text" id="medicine"><br>
+    時間（HH:MM）：<input type="time" id="time"><br>
+    <button type="submit">登録</button>
+  </form>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbylEu-RoOJL6IF-EXDoUCv0yK3L3icCxlRrdlpJbCpSYkGYrNEcKsEHoV8JAnFw_y75/exec"; // ← ここに実際のURLを入れてください
+
+    document.getElementById("medForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = {
+        name: document.getElementById("name").value,
+        medicine: document.getElementById("medicine").value,
+        time: document.getElementById("time").value
+      };
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => response.text())
+      .then(result => {
+        alert("登録完了：" + result);
+      })
+      .catch(error => {
+        alert("エラー：" + error);
+      });
+    });
+  </script>
+</body>
 </html>
+
 
 
 
