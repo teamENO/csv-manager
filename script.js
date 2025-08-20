@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbylEu-RoOJL6IF-EXDoUCv0yK3L3icCxlRrdlpJbCpSYkGYrNEcKsEHoV8JAnFw_y75/exec"; // 実際のURLに置き換えてください
+const scriptURL = "https://script.google.com/macros/s/AKfycbyBsouhVTw88jsCl15FnYFF-cd3wc_yR4VvswbcAaJFhgQzojwohEsguL6cWUe6waq_hQ/exec"; // 実際のURLに置き換えてください
 
 document.getElementById("medForm").addEventListener("submit", function(e) {
   e.preventDefault();
