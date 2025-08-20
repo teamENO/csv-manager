@@ -9,25 +9,17 @@
 <body>
   <h2>服薬記録フォーム</h2>
 
-  <form id="medForm">
-    <label for="name">名前</label>
-    <input type="text" name="name" id="name" required>
-
-    <label for="medicine">薬の名前</label>
-    <input type="text" name="medicine" id="medicine" required>
-
-    <label for="time">服薬時間</label>
-    <select name="time" id="time" required>
-      <option value="">選択してください</option>
-      <option value="08:00">08:00</option>
-      <option value="12:00">12:00</option>
-      <option value="18:00">18:00</option>
-      <option value="21:00">21:00</option>
-    </select>
-
-    <button type="submit">記録する</button>
-  </form>
-
+  <form action="https://script.google.com/macros/s/AKfycbwRaD-VXWbszZaLpu1QsbSjpQz-Y7A0yQCY0kmS-Q58oinClI4Pj9VyeXNL9WrJpUXrEA/exec" method="POST">
+  <input name="name" placeholder="名前" required>
+  <input name="medicine" placeholder="薬名" required>
+  <select name="time" required>
+    <option value="08:00">08:00</option>
+    <option value="12:00">12:00</option>
+    <option value="18:00">18:00</option>
+    <option value="21:00">21:00</option>
+  </select>
+  <button type="submit">記録する</button>
+</form>
   <div class="message" id="message"></div>
 
   <h3>📋 記録履歴（最新5件）</h3>
@@ -36,6 +28,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
