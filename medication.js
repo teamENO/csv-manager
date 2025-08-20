@@ -1,14 +1,16 @@
 // 時間選択肢の生成
-const medTimeSelect = document.getElementById('medTime');
-for (let h = 0; h < 24; h++) {
-  for (let m = 0; m < 60; m += 30) {
-    const time = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-    const option = document.createElement('option');
-    option.value = time;
-    option.textContent = time;
-    medTimeSelect.appendChild(option);
+document.addEventListener('DOMContentLoaded', () => {
+  const medTimeSelect = document.getElementById('medTime');
+  for (let h = 0; h < 24; h++) {
+    for (let m = 0; m < 60; m += 30) {
+      const time = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+      const option = document.createElement('option');
+      option.value = time;
+      option.textContent = time;
+      medTimeSelect.appendChild(option);
+    }
   }
-}
+});
 
 // データ追加処理
 document.getElementById('medForm').addEventListener('submit', function(e) {
