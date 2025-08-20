@@ -11,12 +11,40 @@
 
   <!-- 入力フォーム -->
   <form id="medForm">
-    <input type="text" id="name" placeholder="名前" required>
-    <input type="text" id="medicine" placeholder="薬名" required>
-    <label for="medTime">服薬時間:</label>
-    <select id="medTime" required></select>
-    <button type="submit">追加</button>
-  </form>
+  <input type="text" name="name" placeholder="名前" required>
+  <input type="text" name="medicine" placeholder="薬名" required>
+  <select name="time" required>
+    <option value="08:00">08:00</option>
+    <option value="12:00">12:00</option>
+    <option value="18:00">18:00</option>
+    <option value="21:00">21:00</option>
+  </select>
+  <button type="submit">送信</button>
+</form>
+
+<script>
+document.getElementById("medForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const data = {
+    name: formData.get("name"),
+    medicine: formData.get("medicine"),
+    time: formData.get("time")
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbw-pMdIeyyF1VsSQNcBr87itsd9HWZdequXlf4yaoC1SsvFrGFMhy4iOEgjJlmKvrvPWg/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.text())
+  .then(msg => alert("送信成功: " + msg))
+  .catch(err => alert("送信エラー: " + err));
+});
+</script>
 
   <!-- 表示領域 -->
   <table id="medTable">
@@ -30,4 +58,5 @@
   <script src="medication.js"></script>
 </body>
 </html>
+
 
