@@ -51,27 +51,7 @@ setInterval(() => {
   });
 }, 60000);
 
-function doPost(e) {
-  try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("服薬データ");
-    const data = JSON.parse(e.postData.contents);
-
-    if (!data.name || !data.medicine || !data.time) {
-      throw new Error("不完全なデータです");
-    }
-
-    sheet.appendRow([data.name, data.medicine, data.time, new Date()]);
-    return ContentService.createTextOutput("OK");
-  } catch (err) {
-    return ContentService.createTextOutput("エラー: " + err.message);
-  }
-}
 function sendToSheet(name, medicine, time) {
-  if (!name || !medicine || !time) {
-    alert("すべての項目を入力してください");
-    return;
-  }
-
   fetch("https://script.google.com/macros/s/AKfycbyXF4qukKhYgGFupqeaw4aupi-VEW3sBwCUv-MLk3V8beRxaBYZvGOwYHU6C_7l1Jmb6g/exec", {
     method: "POST",
     body: JSON.stringify({ name, medicine, time }),
