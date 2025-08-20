@@ -2,28 +2,29 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>服薬管理CSVアプリ</title>
+  <title>服薬通知サイト</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- ページ内通知領域 -->
-  <div id="inPageNotify" class="notify hidden"></div>
+  <h1>服薬管理・通知システム</h1>
 
-  <!-- 通知テストボタン -->
-  <section id="notifySection">
-    <h2>通知テスト</h2>
-    <button onclick="showInPageNotification('通知テスト成功！')">通知を表示</button>
-  </section>
+  <!-- 入力フォーム -->
+  <form id="medForm">
+    <input type="text" id="name" placeholder="名前" required>
+    <input type="text" id="medicine" placeholder="薬名" required>
+    <label for="medTime">服薬時間:</label>
+    <select id="medTime"></select>
+    <button type="submit">追加</button>
+  </form>
 
-  <!-- CSV管理セクション -->
-  <section id="csvSection">
-    <h2>CSVアップロード</h2>
-    <input type="file" id="csvFileInput" accept=".csv">
-    <button onclick="handleCSVUpload()">アップロード</button>
+  <!-- 表示領域 -->
+  <table id="medTable">
+    <thead><tr><th>名前</th><th>薬名</th><th>時間</th></tr></thead>
+    <tbody></tbody>
+  </table>
 
-    <h2>CSVデータ表示</h2>
-    <table id="csvTable"></table>
-  </section>
+  <!-- 通知領域 -->
+  <div id="notification" class="hidden"></div>
 
   <script src="script.js"></script>
 </body>
