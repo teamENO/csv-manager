@@ -1,76 +1,50 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const medTimeSelect = document.getElementById('medTime');
-  for (let h = 0; h < 24; h++) {
-    for (let m = 0; m < 60; m += 30) {
-      const time = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-      const option = document.createElement('option');
-      option.value = time;
-      option.textContent = time;
-      medTimeSelect.appendChild(option);
-    }
-  }
+const form = document.getElementById("medForm");
+const messageEl = document.getElementById("message");
+const historyList = document.getElementById("historyList");
 
-  document.getElementById('medForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const medicine = document.getElementById('medicine').value.trim();
-    const time = document.getElementById('medTime').value;
+// 履歴保存用（ローカル表示のみ）
+let history = [];
 
-    if (!name || !medicine || !time) {
-      alert("すべての項目を入力してください");
-      return;
-    }
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
 
-    // 表に追加
-    const table = document.getElementById('medTable').querySelector('tbody');
-    const row = table.insertRow();
-    row.insertCell(0).textContent = name;
-    row.insertCell(1).textContent = medicine;
-    row.insertCell(2).textContent = time;
+  const formData = new FormData(form);
+  const data = {
+    name: formData.get("name"),
+    medicine: formData.get("medicine"),
+    time: formData.get("time")
+  };
 
-    // Googleスプレッドシートに送信
-    sendToSheet(name, medicine, time);
+  messageEl.textContent = "送信中...";
 
-    this.reset();
+  fetch("https://script.google.com/macros/s/【GASのexec URL】/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.text())
+  .then(msg => {
+    messageEl.textContent = "✅ " + msg;
+    form.reset();
+
+    // 履歴に追加（ローカル表示）
+    const now = new Date().toLocaleString();
+    history.unshift(`${now} - ${data.name} / ${data.medicine} / ${data.time}`);
+    if (history.length > 5) history.pop();
+    renderHistory();
+  })
+  .catch(err => {
+    messageEl.textContent = "❌ 送信エラー: " + err;
   });
 });
 
-
-//てすと
-fetch("https://script.google.com/macros/s/AKfycbx8GgnNwkvQcNhZUCM4Pj_qyFzvJJ7x4KViYD-ec9iUudpp_mXAHnqLtlx200z0D2W6Jg/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    name: "テスト太郎",
-    medicine: "アセトアミノフェン",
-    time: "08:00"
-  })
-})
-.then(res => res.text())
-.then(msg => console.log("送信結果:", msg))
-.catch(err => console.error("送信エラー:", err));
-
-// 通知表示（任意）
-function showNotification(name, medicine, time) {
-  const notification = document.getElementById('notification');
-  notification.textContent = `${name}さん、${medicine}の服薬時間（${time}）です！`;
-  notification.classList.remove('hidden');
-  setTimeout(() => notification.classList.add('hidden'), 5000);
-}
-
-// 毎分チェックして通知（任意）
-setInterval(() => {
-  const now = new Date();
-  const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-  const rows = document.querySelectorAll('#medTable tbody tr');
-  rows.forEach(row => {
-    const time = row.cells[2].textContent;
-    if (time === currentTime) {
-      const name = row.cells[0].textContent;
-      const medicine = row.cells[1].textContent;
-      showNotification(name, medicine, time);
-    }
+function renderHistory() {
+  historyList.innerHTML = "";
+  history.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    historyList.appendChild(li);
   });
-}, 60000);
+}
