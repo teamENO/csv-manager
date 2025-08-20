@@ -35,19 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Google Apps Script Webhookへ送信
-function sendToSheet(name, medicine, time) {
-  fetch("https://script.google.com/macros/s/AKfycbx8GgnNwkvQcNhZUCM4Pj_qyFzvJJ7x4KViYD-ec9iUudpp_mXAHnqLtlx200z0D2W6Jg/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ name, medicine, time })
+
+//てすと
+fetch("https://script.google.com/macros/s/AKfycbx8GgnNwkvQcNhZUCM4Pj_qyFzvJJ7x4KViYD-ec9iUudpp_mXAHnqLtlx200z0D2W6Jg/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: "テスト太郎",
+    medicine: "アセトアミノフェン",
+    time: "08:00"
   })
-  .then(res => res.text())
-  .then(msg => console.log("送信結果:", msg))
-  .catch(err => console.error("送信エラー:", err));
-}
+})
+.then(res => res.text())
+.then(msg => console.log("送信結果:", msg))
+.catch(err => console.error("送信エラー:", err));
 
 // 通知表示（任意）
 function showNotification(name, medicine, time) {
