@@ -1,4 +1,4 @@
-fetch("https://script.google.com/macros/s/【exec URL】/exec", {
+fetch("https://script.google.com/macros/s/AKfycbwRaD-VXWbszZaLpu1QsbSjpQz-Y7A0yQCY0kmS-Q58oinClI4Pj9VyeXNL9WrJpUXrEA/exec", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
