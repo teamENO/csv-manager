@@ -9,17 +9,16 @@ document.getElementById("medForm").addEventListener("submit", function(e) {
   };
 
   fetch(scriptURL, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(response => response.text())
-  .then(result => {
-    document.getElementById("message").textContent = "登録完了しました！";
-  })
-  .catch(error => {
-    document.getElementById("message").textContent = "エラーが発生しました";
-  });
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+.then(response => response.text()) // ← .json() ではなく .text() にする
+.then(result => {
+  console.log("成功:", result);
+})
+.catch(error => {
+  console.error("Fetchエラー:", error);
 });
